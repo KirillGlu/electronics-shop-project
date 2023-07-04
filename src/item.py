@@ -1,6 +1,7 @@
 import csv
 import math
 
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -27,6 +28,11 @@ class Item:
     def __str__(self):
         return f"{self.name}"
 
+    def __add__(self, other):
+        """Магический метод позволяющий складывать количество товара только объектов класса и подклассов"""
+        if not isinstance(other, Item):
+            raise ValueError('Складывать можно только объекты Item и дочерние от них.')
+        return self.quantity + other.quantity
 
     @property
     def name(self):
@@ -38,7 +44,6 @@ class Item:
             self.__name = product[0:10]
         else:
             self.__name = product
-
 
     def calculate_total_price(self) -> float:
         """
@@ -56,6 +61,7 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        """ класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv"""
         Item.all = []
         with open('../homework-2/items.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -68,5 +74,3 @@ class Item:
             return math.trunc(float(number))
         else:
             return int(number)
-
-
