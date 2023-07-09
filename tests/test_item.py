@@ -2,6 +2,7 @@
 import pytest
 from src.item import Item
 from src.phone import Phone
+from src.keyboard import Keyboard
 
 
 @pytest.fixture
@@ -66,4 +67,15 @@ def test__add__():
         phone1.number_of_sim = 0
 
 
+# Test class Keyboard
+def test__str__keyboard():
+    kb = Keyboard('Dark Project KD87A', 9600, 5)
+    assert str(kb) == "Dark Project KD87A"
+    assert str(kb.language) == "EN"
 
+    kb.change_lang()
+    assert str(kb.language) == "RU"
+    kb.change_lang().change_lang()
+    assert str(kb.language) == "RU"
+    with pytest.raises(AttributeError):
+        kb.language = 'CH'
