@@ -1,8 +1,9 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
-from src.item import Item
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 from src.keyboard import Keyboard
+
 
 
 @pytest.fixture
@@ -79,3 +80,7 @@ def test__str__keyboard():
     assert str(kb.language) == "RU"
     with pytest.raises(AttributeError):
         kb.language = 'CH'
+
+def test_csv_error():
+    with pytest.raises(InstantiateCSVError, match="Файл item.csv поврежден"):
+        raise InstantiateCSVError
