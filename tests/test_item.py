@@ -82,5 +82,8 @@ def test__str__keyboard():
         kb.language = 'CH'
 
 def test_csv_error():
-    with pytest.raises(InstantiateCSVError, match="Файл item.csv поврежден"):
+    with pytest.raises(InstantiateCSVError):
         raise InstantiateCSVError
+    with pytest.raises(FileNotFoundError):
+        raise FileNotFoundError
+

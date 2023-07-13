@@ -75,14 +75,14 @@ class Item:
             with open('../src/items.csv', newline='') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
+                    if len(Item.all) < 5:
+                        raise InstantiateCSVError
                     Item(row["name"], row["price"], row["quantity"])
-                if len(Item.all) < 5:
-                    raise InstantiateCSVError
+
         except FileNotFoundError:
             print("Отсутствует файл item.csv")
-        # except InstantiateCSVError as e:
-        #     if len(Item.all) < 5:
-        #         print(e)
+        except InstantiateCSVError as e:
+            print(e)
 
     @staticmethod
     def string_to_number(number):
